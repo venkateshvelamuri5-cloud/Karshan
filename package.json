@@ -1,0 +1,25 @@
+{
+  "name": "karshan",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Karshan: a live city clock. Local businesses light lanterns, brands own the hour, private wishes open at the exact minute.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node test/api.test.js",
+    "local": "vite build && node scripts/local-server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "three": "0.128.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.2.17",
+    "vite": "^6.0.0"
+  }
+}

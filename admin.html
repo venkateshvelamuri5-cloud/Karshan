@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Karshan Admin</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0f24">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin">
+<header class="top gut">
+  <div class="max">
+    <a class="brand" href="/admin"><i></i>Karshan <em>Admin</em></a>
+    <div class="row" id="adminBar" hidden>
+      <label class="cityswitch" for="cityFilter">City
+        <select id="cityFilter"></select>
+      </label>
+      <span class="note" id="whoami"></span>
+      <button class="btn small" type="button" id="logout">Sign out</button>
+    </div>
+  </div>
+</header>
+
+<main id="login" class="gut" hidden>
+  <div class="login panel">
+    <h1 class="ch">Sign in</h1>
+    <p class="note" id="loginNote">The admin console for approvals, sponsors and enquiries.</p>
+    <form id="loginForm" novalidate>
+      <label class="f" for="lName">Your name<input type="text" id="lName" maxlength="30" autocomplete="name" placeholder="Venky"></label>
+      <label class="f" for="lPass">Admin password<input type="password" id="lPass" autocomplete="current-password"></label>
+      <button class="btn primary" type="submit" id="loginBtn">Sign in</button>
+      <p class="err" id="loginErr" role="alert"></p>
+    </form>
+  </div>
+</main>
+
+<main id="console" class="gut" hidden>
+  <div class="max shell">
+    <nav class="side" aria-label="Admin sections">
+      <button type="button" class="sidebtn" data-view="dash">Dashboard</button>
+      <button type="button" class="sidebtn" data-view="queue">Approvals <b class="badge" id="pendBadge" hidden></b></button>
+      <button type="button" class="sidebtn" data-view="sponsors">Sponsors</button>
+      <button type="button" class="sidebtn" data-view="enquiries">Enquiries <b class="badge" id="enqBadge" hidden></b></button>
+      <button type="button" class="sidebtn" data-view="reports">Reports <b class="badge" id="repBadge" hidden></b></button>
+      <button type="button" class="sidebtn" data-view="audit">Activity</button>
+    </nav>
+    <section class="content" id="content" aria-live="polite"></section>
+  </div>
+</main>
+<script type="module" src="/src/admin.js"></script>
+</body>
+</html>

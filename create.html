@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Light a lantern · Karshan</title>
+<meta name="description" content="A live clock for Visakhapatnam. Shops light a lantern when they open, brands own the hour, and private wishes open at the exact minute.">
+<meta name="theme-color" content="#0a0f24">
+<meta property="og:title" content="Karshan · Vizag's live city clock">
+<meta property="og:description" content="What's opening, launching and celebrating in Vizag today. And wishes that arrive at the exact minute.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,500;1,9..144,700&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<header id="top"></header>
+<main id="vCreate" class="view">
+  <section class="formwrap gut" style="background:linear-gradient(rgba(10,15,36,.55),var(--night) 260px)">
+    <div class="max">
+      <div><div class="eyebrow">Light a lantern</div><h2 class="ch" style="margin-top:6px">What are you lighting?</h2></div>
+      <div class="tabs" role="tablist" aria-label="Type">
+        <button class="tab" role="tab" id="tabBiz" data-tab="biz" type="button">Announce in Vizag</button>
+        <button class="tab" role="tab" id="tabWish" data-tab="wish" type="button">Private wish</button>
+        <button class="tab" role="tab" id="tabSp" data-tab="sponsor" type="button">Sponsor an hour</button>
+      </div>
+
+      <div class="fgrid" id="paneBiz" role="tabpanel" aria-labelledby="tabBiz">
+        <div class="panel">
+          <form id="bizForm" novalidate>
+            <label class="f" for="bCity">City<select id="bCity"></select></label>
+            <div class="two">
+              <label class="f" for="bName">Business name<input type="text" id="bName" maxlength="40" placeholder="Dosa District"></label>
+              <label class="f" for="bCat">Type<select id="bCat"><option>Opening</option><option>Offer</option><option>Event</option><option>Launch</option></select></label>
+            </div>
+            <label class="f" for="bTitle">Announcement<input type="text" id="bTitle" maxlength="60" placeholder="Grand opening"></label>
+            <div class="two">
+              <label class="f" for="bArea">Area<select id="bArea"></select></label>
+              <label class="f" for="bPhone">Phone (for verification)<input type="tel" id="bPhone" maxlength="14" placeholder="98xxxxxx10"></label>
+            </div>
+            <div class="two">
+              <label class="f" for="bDate">Date<input type="date" id="bDate"></label>
+              <label class="f" for="bTime">Time (IST)<input type="time" id="bTime" step="60"></label>
+            </div>
+            <div class="two">
+              <label class="f" for="bOffer">Offer (optional)<input type="text" id="bOffer" maxlength="60" placeholder="20% off till 8 PM"></label>
+              <label class="f" for="bCode">Code (optional)<input type="text" id="bCode" maxlength="16" placeholder="DOSA20"></label>
+            </div>
+            <p class="note">Free during the launch. We check every announcement before it goes on the clock, usually within a few hours.</p>
+            <p class="note">By submitting you confirm you run or represent this business. We may call to verify.</p>
+            <button class="btn primary" type="submit" id="bizBtn">Submit for approval</button>
+            <p class="err" id="bizErr" role="alert"></p>
+          </form>
+        </div>
+        <div class="panel"><div class="eyebrow">On the city clock</div><div class="pv" id="bizPv"></div></div>
+      </div>
+
+      <div class="fgrid" id="paneWish" role="tabpanel" aria-labelledby="tabWish" hidden>
+        <div class="panel">
+          <form id="wishForm" novalidate>
+            <div class="two">
+              <label class="f" for="wTo">For<input type="text" id="wTo" maxlength="30" placeholder="Amma"></label>
+              <label class="f" for="wFrom">From<input type="text" id="wFrom" maxlength="30" placeholder="Venky"></label>
+            </div>
+            <label class="f" for="wMsg">Your wish<textarea id="wMsg" maxlength="90" placeholder="Happy birthday, Amma. You're my whole world."></textarea></label>
+            <div class="two">
+              <label class="f" for="wDate">Unlocks on<input type="date" id="wDate"></label>
+              <label class="f" for="wTime">At (IST)<input type="time" id="wTime" step="60"></label>
+            </div>
+            <div class="f" style="font-size:.8rem;color:var(--muted);font-weight:600">Colours<div class="swatches" id="swatches"></div></div>
+            <p class="note">Free during the launch. Your wish is locked on our server and only opens at the minute you pick. Nobody, including us, sees it before then.</p>
+            <button class="btn primary" type="submit" id="wishBtn">Create my private link</button>
+            <p class="err" id="wishErr" role="alert"></p>
+          </form>
+        </div>
+        <div class="panel"><div class="eyebrow">What they'll see before it opens</div><div class="pv" id="wishPv"></div>
+          <a class="btn" href="/w/demo">Watch a 20-second preview</a></div>
+      </div>
+
+      <div class="fgrid" id="paneSp" role="tabpanel" aria-labelledby="tabSp" hidden>
+        <div class="panel">
+          <form id="spForm" novalidate>
+            <div class="two">
+              <label class="f" for="sBiz">Brand<input type="text" id="sBiz" maxlength="40"></label>
+              <label class="f" for="sName">Your name<input type="text" id="sName" maxlength="40"></label>
+            </div>
+            <div class="two">
+              <label class="f" for="sPhone">Phone<input type="tel" id="sPhone" maxlength="14"></label>
+              <label class="f" for="sWhat">Interested in<select id="sWhat"><option>One hour</option><option>A whole day</option><option>A festival week</option></select></label>
+            </div>
+            <label class="f" for="sNote">Anything else<textarea id="sNote" maxlength="240" placeholder="Preferred dates, areas, budget"></textarea></label>
+            <button class="btn primary" type="submit" id="spBtn">Send enquiry</button>
+            <p class="err" id="spErr" role="alert"></p>
+          </form>
+        </div>
+        <div class="panel"><div class="eyebrow">Rate card</div>
+          <div class="rates" style="grid-template-columns:1fr"><div><b>₹2,999</b><span>Evening hour (17:00–23:00)</span></div><div><b>₹1,499</b><span>Daytime hour (07:00–17:00)</span></div><div><b>₹19,999</b><span>Whole day on the dial</span></div></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+<script type="module" src="/src/create.js"></script>
+</body>
+</html>

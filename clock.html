@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Today in Vizag · Karshan</title>
+<meta name="description" content="A live clock for Visakhapatnam. Shops light a lantern when they open, brands own the hour, and private wishes open at the exact minute.">
+<meta name="theme-color" content="#0a0f24">
+<meta property="og:title" content="Karshan · Vizag's live city clock">
+<meta property="og:description" content="What's opening, launching and celebrating in Vizag today. And wishes that arrive at the exact minute.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,500;1,9..144,700&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<header id="top"></header>
+<main id="vClock" class="view passthrough">
+  <section class="clockhero">
+    <div class="hud top gut">
+      <span class="pill clockface" id="clkNow">--:--:--</span>
+      <span class="row" style="gap:6px"><span class="pill" id="clkWatch" hidden></span><span class="pill" id="clkSponsor">This hour</span></span>
+    </div>
+    <div class="hud bottom gut" id="clkNext"></div>
+    <div class="detail" id="detail" hidden></div>
+  </section>
+  <section class="panels gut">
+    <div class="max">
+      <div class="panel">
+        <h3 id="listTitle">Today in Vizag</h3>
+        <div class="chips" id="areaChips" role="group" aria-label="Filter by area"></div>
+        <div class="banner" id="sampleBanner" hidden><span id="sampleText">Showing sample lanterns until the first real announcement is approved.</span></div>
+        <div class="list" id="todayList"></div>
+        <div class="eyebrow" style="margin-top:8px">Coming up</div>
+        <div class="list" id="laterList"></div>
+      </div>
+      <div style="display:grid;gap:18px;align-content:start;min-width:0">
+        <div class="panel">
+          <div class="eyebrow">Private wishes</div>
+          <div class="stat" id="wishCount">0</div>
+          <p class="note" style="color:var(--foam)">private wishes open in Vizag today. Only the people they're for can see them.</p>
+          <a class="btn primary" href="/create#wish">Send one tonight</a>
+        </div>
+        <div class="panel">
+          <div class="eyebrow">Light your own lantern</div>
+          <p style="margin:0">Opening a shop, running an offer, hosting an event? Put it on the city clock.</p>
+          <a class="btn" href="/create">Announce in Vizag</a>
+        </div>
+              </div>
+    </div>
+  </section>
+</main>
+<main id="vSoon" class="view" hidden>
+  <section class="soon gut"><div class="card">
+    <div class="eyebrow">Coming soon</div>
+    <h2 class="ch" id="soonTitle">Karshan is coming to your city</h2>
+    <p class="lead">We're opening one city at a time. Businesses there can already ask to be among the first lanterns.</p>
+    <div class="row" style="justify-content:center"><a class="btn primary" href="/create#sponsor">Tell us you're interested</a><a class="btn" href="/vizag">See Vizag's clock</a></div>
+  </div></section>
+</main>
+<script type="module" src="/src/clock.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>A wish for you · Karshan</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="A live clock for Visakhapatnam. Shops light a lantern when they open, brands own the hour, and private wishes open at the exact minute.">
+<meta name="theme-color" content="#0a0f24">
+<meta property="og:title" content="Karshan · Vizag's live city clock">
+<meta property="og:description" content="What's opening, launching and celebrating in Vizag today. And wishes that arrive at the exact minute.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,500;1,9..144,700&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<header id="top"></header>
+<main id="vWish" class="view passthrough">
+  <div class="gut" id="wishCreated" hidden style="padding-top:14px"><div class="max successbar">Your private link is ready. Send it before you sleep; it opens by itself at the minute.</div></div>
+  <section class="wishstage">
+    <div class="ov top gut" id="ovTop"></div>
+    <div class="ov bottom gut" id="ovBottom"></div>
+  </section>
+  <section class="panels gut">
+    <div class="max">
+      <div class="panel">
+        <div class="eyebrow">Send it</div>
+        <p style="margin:0">Send this link before you sleep. It opens by itself at the minute.</p>
+        <div class="sharebox"><span class="code" id="wishLink"></span></div>
+        <div class="sharebox" id="shareText"></div>
+        <div class="row"><a class="btn primary" id="waShare" href="#" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn" id="smsShare" href="#">Send by SMS</a><button class="btn" type="button" id="copyShare">Copy message</button></div>
+      </div>
+      <div class="panel">
+        <div class="eyebrow">Your turn</div>
+        <p style="margin:0">Got someone to surprise at midnight?</p>
+        <a class="btn primary" href="/create#wish">Write a wish</a>
+        <a class="btn" href="/vizag">See today in Vizag</a>
+        <button class="report" type="button" id="reportWish" hidden>Report this wish</button>
+      </div>
+    </div>
+  </section>
+</main>
+<script type="module" src="/src/wish.js"></script>
+</body>
+</html>
