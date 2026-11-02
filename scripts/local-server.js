@@ -19,7 +19,7 @@ useQuery(async (text, params = []) => (await pg.query(text, params)).rows);
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.json': 'application/json' };
 
 function rewrite(path) {
-  if (/^\/w\/[a-z0-9-]+\/?$/.test(path)) return '/wish.html';
+  if (/^\/[bw]\/[a-z0-9-]+\/?$/.test(path)) return '/wall.html';
   if (/^\/(vizag|vijayawada)\/?$/.test(path)) return '/clock.html';
   if (path === '/') return '/index.html';
   if (!extname(path)) return path.replace(/\/$/, '') + '.html';

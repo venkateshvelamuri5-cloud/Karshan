@@ -88,8 +88,10 @@ async function dash() {
       ${k(d.pending, 'waiting for approval', true, 'queue')}
       ${k(d.liveToday, 'announcements on the clock today')}
       ${k(d.approvedWeek, 'approved this week')}
-      ${k(d.wishesToday, 'private wishes opening today')}
-      ${k(d.wishesWeek, 'wishes created this week')}
+      ${k(d.wallsToday, 'birthday walls opening today')}
+      ${k(d.wallsWeek, 'walls created this week')}
+      ${k(d.wallWishesWeek, 'wishes added to walls this week')}
+      ${k(d.photosWeek, 'photos uploaded this week')}
       ${k(d.newEnquiries, 'new sponsor enquiries', true, 'enquiries')}
       ${k(d.openReports, 'open reports', true, 'reports')}
       ${k(Math.round(d.sponsoredHoursToday * 10) / 10, 'sponsored hours today', false, 'sponsors')}
@@ -283,19 +285,27 @@ async function enquiries() {
 
 /* ---------- reports ---------- */
 async function reports() {
-  content.innerHTML = '<h2>Reports</h2><p class="note">Private wishes stay private. You only see a wish here if someone reported it.</p><div class="list" id="reps"><p class="note">Loading…</p></div>';
+  content.innerHTML = '<h2>Reports</h2><p class="note">Wishes and photos stay private. You only see one here if someone reported it.</p><div class="list" id="reps"><p class="note">Loading…</p></div>';
   let items;
   try { items = (await api('admin/reports')).items; } catch (e) { return fail(e); }
   const box = $('reps');
   if (!items.length) { box.innerHTML = '<p class="empty">No open reports.</p>'; return; }
-  box.innerHTML = items.map((r) => `<article class="req" data-id="${r.id}">
-    <div class="meta"><span class="tag">Reported wish</span><span class="tag">${ago(r.createdAt)}</span></div>
-    ${r.wish ? `<h3>“${esc(r.wish.message)}”</h3><div class="note">For ${esc(r.wish.to)} from ${esc(r.wish.from)} · opens ${esc(dLabel(r.wish.at))} ${esc(tLabel(r.wish.at))}</div>` : '<div class="note">This wish was already removed.</div>'}
+  box.innerHTML = items.map((r) => {
+    const ww = r.wallWish, w = r.wish;
+    const body = ww
+      ? `${ww.photo ? `<img src="${esc(ww.photo)}" alt="Reported photo" style="max-width:220px;border-radius:10px">` : ''}<h3>“${esc(ww.message)}”</h3><div class="note">From ${esc(ww.from)} on ${esc(ww.forName)}'s wall · <a href="/b/${esc(ww.wallId)}" target="_blank" rel="noopener">open wall</a>${ww.hidden ? ' · already hidden' : ''}</div>`
+      : w ? `<h3>“${esc(w.message)}”</h3><div class="note">For ${esc(w.to)} from ${esc(w.from)} · opens ${esc(dLabel(w.at))} ${esc(tLabel(w.at))}</div>`
+      : '<div class="note">This was already removed.</div>';
+    const canRemove = (ww && !ww.hidden) || w;
+    return `<article class="req" data-id="${r.id}">
+    <div class="meta"><span class="tag">${ww ? 'Reported wall wish' : 'Reported wish'}</span><span class="tag">${ago(r.createdAt)}</span></div>
+    ${body}
     <div class="note">Reason: ${esc(r.reason || 'none given')}</div>
-    <div class="actions">${r.wish ? '<button class="btn small" type="button" data-a="remove">Remove the wish</button>' : ''}<button class="btn small" type="button" data-a="dismiss">Dismiss</button></div></article>`).join('');
+    <div class="actions">${canRemove ? `<button class="btn small" type="button" data-a="remove">${ww ? 'Hide it' : 'Remove the wish'}</button>` : ''}<button class="btn small" type="button" data-a="dismiss">Dismiss</button></div></article>`;
+  }).join('');
   box.onclick = async (e) => {
     const a = e.target.dataset.a; if (!a) return;
-    try { await api('admin/reports/' + e.target.closest('.req').dataset.id, { method: 'POST', body: { action: a } }); toast(a === 'remove' ? 'Wish removed.' : 'Dismissed.'); refreshBadges(); reports(); }
+    try { await api('admin/reports/' + e.target.closest('.req').dataset.id, { method: 'POST', body: { action: a } }); toast(a === 'remove' ? 'Hidden from the wall.' : 'Dismissed.'); refreshBadges(); reports(); }
     catch (x) { toast(x.message); }
   };
 }

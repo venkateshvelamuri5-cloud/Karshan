@@ -1,10 +1,10 @@
 # Karshan
 
-A live clock for the city, starting with Visakhapatnam.
+Vizag's live clock for celebrations and offers.
 
-- **Businesses** light a lantern on the city clock for an opening, offer, event or launch. It appears on the dial at its time and bursts onto the face for everyone watching when it goes live, along with the offer code and directions.
-- **Brands** sponsor hours on the dial.
-- **People** send private wishes that unlock at the exact minute, so you can be the first to wish someone even if you fall asleep. The message is locked on the server until then.
+- **Celebrate: birthday walls.** Make a wall for someone and share the link in your group. Anyone with the link adds a wish and a photo. Everything stays sealed on the server until the minute you pick; then fireworks burst and each photo and wish appears under the lights, one after another.
+- **Promote: businesses.** Any time-based moment (sale, offer, happy hour, launch, event, opening) glows on the city clock at its time. When it starts, fireworks go off in its colour and the offer code appears for everyone watching.
+- **Brands** sponsor hours: their colour on the rim of the clock.
 - **You** run it all from the admin console at `/admin`: approvals, sponsorship calendar, enquiries, reports and an activity log.
 
 ## Pages
@@ -13,8 +13,8 @@ A live clock for the city, starting with Visakhapatnam.
 | --- | --- |
 | `/` | Landing page: a 3D scroll story over the Bay of Bengal |
 | `/vizag` | The live city clock (one per city: `/vijayawada` and so on) |
-| `/create` | Announce in the city, write a private wish, or ask about sponsoring (`/create#wish`, `/create#sponsor`) |
-| `/w/<id>` | A private wish: countdown, a lantern for each person waiting, and the reveal. `/w/demo` is a 20-second preview |
+| `/create` | Make a birthday wall, promote a business (`/create#promote`) or ask about sponsoring (`/create#sponsor`) |
+| `/b/<id>` | A birthday wall: add wishes and photos, countdown, then the fireworks show. `/b/demo` is a 20-second demo |
 | `/admin` | Admin console |
 
 ## Run it on your computer
@@ -50,22 +50,23 @@ Cities with `enabled: false` show a "coming soon" page.
 
 ## How it is built
 
-- **Front end:** Vite, plain JavaScript modules and three.js (`src/`). One fixed WebGL canvas sits behind each public page.
-  - `src/landing.js`: the bay, the floating clock and the five scroll chapters
-  - `src/clock.js`: the city dial, lanterns, live reveals and reactions
-  - `src/wish.js`: the private wish countdown and reveal
-  - `src/create.js`: the three forms
-  - `src/admin.js`: the admin console
-  - `src/lib/kit.js`: shared 3D pieces (sky, sea, lanterns, petals, text written in light)
+- **Front end:** React with React Three Fiber, drei, postprocessing (bloom) and GSAP ScrollTrigger, built with Vite. One fixed 3D canvas sits behind each public page.
+  - `src/pages/landing.jsx`: the bay at dusk, the floating clock, scroll-driven camera, tap-to-launch fireworks
+  - `src/pages/clock.jsx`: the readable 12-hour city clock, glowing moments on the rim, live fireworks, reactions
+  - `src/pages/wall.jsx`: the birthday wall: signer lanterns, photo upload, sealed countdown, the fireworks show and gallery
+  - `src/pages/create.jsx`: the three forms
+  - `src/admin.js`: the admin console (plain JavaScript)
+  - `src/three/`: shared 3D pieces: `Clock3D`, GPU `Fireworks` (thousands of sparks computed in a shader), `WallShow` (photo cards), `World` (sky, sea, coast, lanterns, bloom)
 - **API:** one Vercel function (`api/index.js` → `lib/router.js`) serves every `/api/*` route.
 - **Database:** Postgres through Neon's serverless driver (`lib/db.js`). Times are stored as milliseconds and shown in IST.
+- **Photos:** resized in the browser (max 1080px JPEG, about 150 KB) and stored in Postgres, served from `/api/photos/<id>` with long caching. Move them to Vercel Blob once there are thousands.
 - **Live features:** "people watching", lanterns in a wish room and reactions use short polling, so there is no extra realtime service to pay for.
 - **Admin auth:** a password from `ADMIN_PASSWORD`, then a signed, HTTP-only session cookie.
 
 ### Privacy rules built in
 
-- A wish's message is never sent to a browser before its minute (`GET /api/wishes/:id` returns it only once open).
-- Admins see counts of private wishes, not their messages. A message appears in the console only if someone reports it.
+- A wall's wishes and photos are never sent to a browser before the reveal, except to the wall's creator (who holds a private manage link) so they can hide anything unkind.
+- Admins see counts of walls and wishes, not their content. A wish appears in the console only if someone reports it.
 - Offer codes are hidden until the announcement goes live.
 
 ## Next steps

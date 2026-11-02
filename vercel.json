@@ -5,17 +5,39 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/api/:path(.*)", "destination": "/api/index?__path=:path" },
-    { "source": "/w/:id", "destination": "/wish" },
-    { "source": "/:city(vizag|vijayawada)", "destination": "/clock" }
+    {
+      "source": "/api/:path(.*)",
+      "destination": "/api/index?__path=:path"
+    },
+    {
+      "source": "/b/:id",
+      "destination": "/wall"
+    },
+    {
+      "source": "/w/:id",
+      "destination": "/wall"
+    },
+    {
+      "source": "/:city(vizag|vijayawada)",
+      "destination": "/clock"
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
       ]
     }
   ]

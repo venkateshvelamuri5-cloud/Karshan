@@ -3,83 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Karshan · Vizag's live city clock</title>
-<meta name="description" content="A live clock for Visakhapatnam. Shops light a lantern when they open, brands own the hour, and private wishes open at the exact minute.">
+<title>Karshan · Vizag's live clock for celebrations and offers</title>
+<meta name="description" content="Vizag's live clock for celebrations and offers: birthday walls that open with fireworks at midnight, and local offers that glow on the clock when they start.">
 <meta name="theme-color" content="#0a0f24">
-<meta property="og:title" content="Karshan · Vizag's live city clock">
-<meta property="og:description" content="What's opening, launching and celebrating in Vizag today. And wishes that arrive at the exact minute.">
+<meta property="og:title" content="Karshan · Vizag's live clock">
+<meta property="og:description" content="Vizag's live clock for celebrations and offers: birthday walls that open with fireworks at midnight, and local offers that glow on the clock when they start.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,500;1,9..144,700&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-<canvas id="gl" aria-hidden="true"></canvas>
-<header id="top"></header>
-<main id="vHome" class="view">
-  <section class="story hero gut" data-ch="0">
-    <div class="max"><div class="card">
-      <span class="live"><b></b><span id="liveNow">Vizag · --:--:-- IST</span></span>
-      <h1 class="big">Vizag's day, <em>one lantern</em> at a time.</h1>
-      <p class="lead">A live clock for the city. Shops light a lantern when they open, brands own the hour, and your private wishes arrive at the exact minute, even if you are fast asleep.</p>
-      <div class="row">
-        <a class="btn primary" href="/vizag">See what's on today</a>
-        <a class="btn ghost" href="/create">Send a midnight wish</a>
-      </div>
-    </div></div>
-    <div class="cue">Scroll to fly over the bay</div>
-  </section>
-
-  <section class="story gut right" data-ch="1">
-    <div class="max"><div class="card">
-      <div class="eyebrow">Public · for businesses</div>
-      <h2 class="ch">Opening at 6? <em>Light a lantern</em> on the city clock.</h2>
-      <p class="lead">Every opening, flash offer and launch sits on the clock at its exact time. People see it coming, count down with you, and get the offer code and directions the moment you open.</p>
-      <div class="mini" aria-label="Example announcements">
-        <div><b>11:00</b><span>Beach Road Book Café opens<small>RK Beach · first 30 coffees free</small></span></div>
-        <div><b>18:00</b><span>Dosa District grand opening<small>Siripuram · 20% off till 8 PM</small></span></div>
-        <div><b>19:30</b><span>Kailasa Fitness open house<small>Seethammadhara · free trial week</small></span></div>
-      </div>
-      <p class="note">Examples. Every public announcement is checked before it goes live.</p>
-    </div></div>
-  </section>
-
-  <section class="story gut" data-ch="2">
-    <div class="max"><div class="card">
-      <div class="eyebrow">Private · for the people you love</div>
-      <h2 class="ch">Be the first to wish them, <em>even if you fall asleep.</em></h2>
-      <ol class="steps">
-        <li>Write your wish in the evening and pick the minute, say 12:00 midnight.</li>
-        <li>Send them the private link on WhatsApp before you sleep.</li>
-        <li>At 12:00:00 it unlocks by itself and your words light up the sky. Nobody else can see it.</li>
-      </ol>
-      <div class="row"><a class="btn primary" href="/w/demo">Watch a 20-second wish</a><a class="btn ghost" href="/create#wish">Write one</a></div>
-    </div></div>
-  </section>
-
-  <section class="story gut right" data-ch="3">
-    <div class="max"><div class="card">
-      <div class="eyebrow">For brands</div>
-      <h2 class="ch">Own <em>the hour</em> the city is watching.</h2>
-      <p class="lead">The 24 tiles on the dial are the day's hours. Sponsor one and your name sits on the clock for that hour, beside every opening and offer that lights up in it.</p>
-      <div class="rates">
-        <div><b>₹2,999</b><span>One hour, evening prime time</span></div>
-        <div><b>₹19,999</b><span>A whole day on the dial</span></div>
-        <div><b>Custom</b><span>Festival weeks: Diwali, Sankranti</span></div>
-      </div>
-      <div class="row"><a class="btn" href="/create#sponsor">Ask about sponsoring</a></div>
-    </div></div>
-  </section>
-
-  <section class="story gut" data-ch="4">
-    <div class="max"><div class="card">
-      <h2 class="ch">The whole city, <em>on one clock.</em></h2>
-      <p class="lead">Starting in Visakhapatnam. RK Beach to Rushikonda, Gajuwaka to Madhurawada.</p>
-      <div class="row"><a class="btn primary" href="/vizag">Open today's clock</a><a class="btn ghost" href="/create">Light a lantern</a></div>
-    </div></div>
-  </section>
-  <div class="foot gut">Karshan · first version, starting in Visakhapatnam. <a href="/admin">Admin</a></div>
-</main>
-<script type="module" src="/src/landing.js"></script>
+<div id="root"></div>
+<noscript><p style="padding:24px;color:#eef2ee">Karshan needs JavaScript to show the live clock.</p></noscript>
+<script type="module" src="/src/pages/landing.jsx"></script>
 </body>
 </html>

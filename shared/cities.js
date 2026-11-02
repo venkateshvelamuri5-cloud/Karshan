@@ -23,7 +23,9 @@ export const CITIES = {
 };
 
 export const DEFAULT_CITY = 'vizag';
-export const CATEGORIES = ['Opening', 'Offer', 'Event', 'Launch'];
+// Anything a business wants people to show up for, at a time.
+export const CATEGORIES = ['Offer', 'Sale', 'Event', 'Launch', 'Opening', 'Happy hour'];
+export const OCCASIONS = ['Birthday', 'Anniversary', 'Congratulations', 'Farewell', 'Welcome', 'Just because'];
 export const REACTIONS = ['❤️', '🎉', '🔥', '👏', '😋'];
 export const THEMES = ['marigold', 'peacock', 'rose', 'night'];
 
