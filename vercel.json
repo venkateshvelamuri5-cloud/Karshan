@@ -6,8 +6,8 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/api/:path(.*)", "destination": "/api/index?__path=:path" },
-    { "source": "/w/:id", "destination": "/wish.html" },
-    { "source": "/:city(vizag|vijayawada)", "destination": "/clock.html" }
+    { "source": "/w/:id", "destination": "/wish" },
+    { "source": "/:city(vizag|vijayawada)", "destination": "/clock" }
   ],
   "headers": [
     {
